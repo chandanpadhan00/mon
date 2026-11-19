@@ -1,11 +1,8 @@
-SELECT asnfdm.fn_clean_code_list('[residency"]"')            AS a,  -- residency
-       asnfdm.fn_clean_code_list('[Cancelled-No Response"]"') AS b,  -- Cancelled-No Response
-       asnfdm.fn_clean_code_list('[]') = ''                    AS c,  -- true
-       asnfdm.fn_clean_code_list(NULL) IS NULL                 AS d,  -- true
-       asnfdm.fn_clean_yes_no('yes')                           AS e,  -- Yes
-       asnfdm.fn_clean_yes_no('No')                            AS f;  -- No
+SELECT batch_id, s3tostage, quality_check, stagetodim, stage_dimtofact, s3_source_count, stage_count
+FROM asnfdm.pap_data_process_log ORDER BY start_dt DESC LIMIT 1;
 
-SELECT table_name FROM information_schema.tables
-WHERE table_schema = 'asnfdm'
-  AND table_name IN ('stg_accera_prescreen', 'f_accera_prescreen', 'v_accera_prescreen_latest');
--- expect 3 rows
+SELECT source_file_name, batch_id, count(*) FROM asnfdm.f_accera_prescreen GROUP BY 1, 2;
+
+SELECT denial_reasons_raw, denial_reasons, count(*) FROM asnfdm.f_accera_prescreen GROUP BY 1, 2 ORDER BY 3 DESC;
+SELECT insurance_types_raw, insurance_types, count(*) FROM asnfdm.f_accera_prescreen GROUP BY 1, 2 ORDER BY 3 DESC;
+SELECT residency, insurance_medicare, count(*) FROM asnfdm.f_accera_prescreen GROUP BY 1, 2;
