@@ -1,0 +1,36 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadProdVendorFiles",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:GetObjectTagging"],
+      "Resource": [
+        "arn:aws:s3:::amgen-gco-asnf-regalorx-bkt/prod/inbound/Patient_Case_Detail_Report_v2*",
+        "arn:aws:s3:::amgen-gco-asnf-regalorx-bkt/prod/inbound/Patient_Detail_Report_*",
+        "arn:aws:s3:::amgen-gco-asnf-regalorx-bkt/prod/inbound/Prescreen_Detail_Report_*",
+        "arn:aws:s3:::amgen-gco-asnf-snx-bkt/prod/Patient_Case_Detail_Report_v2*",
+        "arn:aws:s3:::amgen-gco-asnf-snx-bkt/prod/ASNF_PATIENT_DEMOGRAPHICS.SONEXUS.*"
+      ]
+    },
+    {
+      "Sid": "ReadAndWriteTestInboundCopies",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:PutObjectTagging"],
+      "Resource": [
+        "arn:aws:s3:::amgen-gco-asnf-regalorx-bkt/test/inbound/*",
+        "arn:aws:s3:::amgen-gco-asnf-snx-bkt/test/inbound/*"
+      ]
+    },
+    {
+      "Sid": "ListTestInboundForDuplicateCheck",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": [
+        "arn:aws:s3:::amgen-gco-asnf-regalorx-bkt",
+        "arn:aws:s3:::amgen-gco-asnf-snx-bkt"
+      ],
+      "Condition": {"StringLike": {"s3:prefix": ["test/inbound/*"]}}
+    }
+  ]
+}
