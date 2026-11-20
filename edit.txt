@@ -1,0 +1,10 @@
+Event name	Prefix
+Copy_PCD2_regalorx	prod/inbound/Patient_Case_Detail_Report_v2
+Copy_PHI_regalorx	prod/inbound/Patient_Detail_Report_2
+Copy_Prescreen_regalorx	prod/inbound/Prescreen_Detail_Report_
+
+SNX bucket (amgen-gco-asnf-snx-bkt): create 2
+
+Event name	Prefix
+Copy_PCD2_snx	prod/Patient_Case_Detail_Report_v2
+Copy_PHI_snx	prod/ASNF_PATIENT_DEMOGRAPHICS.SONEXUS.
